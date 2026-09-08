@@ -1,0 +1,27 @@
+[Unit]
+Description=Read-only CTP market-data gateway
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/ctp-md/ctp-md.env
+ConditionPathExists=/etc/ctp-md/ctp-md.credentials
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=ctpmd
+Group=ctpmd
+EnvironmentFile=/etc/ctp-md/ctp-md.env
+EnvironmentFile=/etc/ctp-md/ctp-md.credentials
+ExecStart=/opt/ctp-md/bin/ctp-md-gateway
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/ctp-md
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

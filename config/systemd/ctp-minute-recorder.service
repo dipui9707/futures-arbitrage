@@ -1,0 +1,24 @@
+[Unit]
+Description=CTP minute-bar spool recorder
+After=network.target ctp-md-gateway.service
+Requires=ctp-md-gateway.service
+ConditionPathExists=/etc/ctp-md/ctp-md.env
+ConditionPathExists=/etc/ctp-md/ctp-md.credentials
+
+[Service]
+Type=simple
+User=ctpmd
+Group=ctpmd
+ExecStart=/usr/bin/python3 /opt/ctp-md/bin/record_stream.py record --db /var/lib/ctp-md/minute_bars.sqlite3 --host 127.0.0.1 --port 19001 --flush-seconds 2 --quote-host 127.0.0.1 --quote-port 19002 --quote-batch-ms 100 --retention-days 30
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/ctp-md
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

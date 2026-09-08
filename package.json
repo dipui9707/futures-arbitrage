@@ -1,0 +1,14 @@
+{
+  "name": "futures-arbitrage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Independent local futures spread monitor",
+  "scripts": {
+    "start": "python3 scripts/manage.py start",
+    "stop": "python3 scripts/manage.py stop",
+    "status": "python3 scripts/manage.py status",
+    "setup": "python3 scripts/manage.py setup",
+    "check": "python3 scripts/manage.py check",
+    "build": "npm --prefix frontend run build"
+  }
+}
